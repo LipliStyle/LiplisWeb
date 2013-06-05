@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+	<meta http-equiv="P3P"  content='CP="コンパクトポリシー"'>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Cache-Control" content="no-cache"/>
+    <meta http-equiv="Expires" content="1"/>
+	<link   type="text/css"        href="css/liplisWebMenu.css"        rel="stylesheet"/>
+	<link   type="text/css"        href="css/liplisWebAnalogclock.css" rel="stylesheet"/>
+	<script type="text/javascript" src="js/jquery-1.8.3.min.js"                         ></script>
+	<script type="text/javascript" src="js/liplisWebMenu.js"                            ></script>
+	<script type="text/javascript" src="js/liplisWebCss.js"                             ></script>
+	<script type="text/javascript" src="js/liplisWebAnalogCliock.js" charset="Shift_JIS"></script>
+    <script type="text/javascript" src="js/liplisWeb.js"                                ></script>
+
+<script type="text/javascript">
+
+</script>
+
+
+    <title>Liplis Lili</title>
+</head>
+    <body>
+        <div id="liplisWeb">
+            <div id="liplisWindow">
+                <img src="" name="liplisWindow" alt=""/>
+            </div>
+            <div id="message"></div>
+            <div id="liplisBody">
+                <img src="" name="liplisBody" alt="" onclick="nextLiplis()"/>
+            </div>
+            <button type="button" onclick="stopLiplis()"      id="liplisSleep"      ></button>
+            <button type="button" onclick="openLog()"         id="liplisLog"        ></button>
+            <button type="button" onclick="openSetting()"     id="liplisSetting"    ></button>
+            <button type="button" onclick="nextLiplis()"      id="liplisThinking"   ></button>
+            <button type="button" onclick="chatNowTime()"     id="liplisClock"      ></button>
+            <button type="button" onclick="chatBatteryInfo()" id="liplisBattery"    ></button>
+            <div class="test"></div>
+        </div>
+		<div id="wrap">
+         <ul id="dock">
+             <li id="logListPanel" class="panelTag">
+                 <ul id="liplisLogList"  class="free update-scroll">
+                     <li class="header">ログリスト</button></li>
+                 </ul>
+             </li>
+             <li id="settingPanel" class="panelTag">
+                 <ul id="setting_panel_list" class="free clickBlock">
+                     <li class="header">設定</li>
+						<li class="liTitle">おしゃべりモード</li>
+						<li>
+							<input type="radio" name="freqlist" value="0" onclick="selectFreqence()" checked/>おしゃべり
+							<input type="radio" name="freqlist" value="1" onclick="selectFreqence()"/>ふつう
+							<input type="radio" name="freqlist" value="2" onclick="selectFreqence()"/>ひかえめ
+						</li>
+						<li class="liTitle">アクディブ度</li>
+						<li>
+							<input type="radio" name="activelist" value="0" onclick="selectActive()" checked/>おてんば
+							<input type="radio" name="activelist" value="1" onclick="selectActive()"/>ふつう
+							<input type="radio" name="activelist" value="2" onclick="selectActive()"/>ゆっくり
+						</li>
+						<li class="liTitle">おしゃべりジャンル</li>
+						<li>
+							<input id="genreNews" type="checkbox" name="genrelist" onclick="selectGenre()" value="0"> ニュース
+							<input id="genre2ch " type="checkbox" name="genrelist" onclick="selectGenre()" value="1"> 2ch
+							<input id="genrenico" type="checkbox" name="genrelist" onclick="selectGenre()" value="2"> ニコニコ動画
+						</li>
+						<li class="liTitle">ウインドウ</li>
+						<li>
+							<select id="windowlist" onchange="selectWindow()">
+								<option value="0" selected>window1</option>
+								<option value="1">window2</option>
+								<option value="2">window3</option>
+								<option value="3">window4</option>
+								<option value="4">window5</option>
+								<option value="5">window6</option>
+								<option value="6">window7</option>
+							</select>
+						</li>
+						<li class="liTitle">スキップ有効</li>
+						<li>
+							<input id="flgSkipOn" type="checkbox" name="flgSkipOnList" onclick="selectSkip()" value="0"> スキップを有効にする
+						</li>
+                 </ul>
+             </li>
+             <li id="operationPanel" class="panelTag">
+                 <ul class="free">
+                    <li class="header">操作</li>
+                    <li><a onclick="nextLiplis()"  ><button type="button" id="liplisNextMin"></button>&nbsp;次の話題</a></li>
+					<li><a onclick="stopLiplis()"  ><button type="button" id="liplisSleepMin"></button>&nbsp;おやすみ</a></li>
+					<li><a onclick="chatNowTime()" ><button type="button" id="liplisClockMin"></button>&nbsp;時間報告</a></li>
+					<li><a onclick="chatBatteryInfo()" ><button type="button" id="liplisBatteryMin"></button>&nbsp;バッテリー情報</a></li>
+					<li><a onclick="jumpLiplistyle()" >&nbsp;LipliStyle サイトにジャンプ</a></li>
+					<li><a >Liplis Web バージョン : 1.0.5</a></li>
+                 </ul>
+             </li>
+         </ul>
+      </div>
+    </body>
+</html>

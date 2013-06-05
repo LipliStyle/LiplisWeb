@@ -1,0 +1,30 @@
+
+/* “_‚Ì‹¤’ÊŽw’è */
+div.Clock_HourHand,
+div.Clock_MinuteHand,
+div.Clock_SecondHand,
+div.Clock_Dot_small{
+ border-width:0;
+ border-style:solid;
+ background-color:#FFFFFF;
+ position:absolute;
+ overflow:hidden;
+ cursor:default;
+}
+
+div.Clock_HourHand{
+ height:1px;
+ width:1px;
+}
+div.Clock_MinuteHand{
+ height:1px;
+ width:1px;
+}
+div.Clock_SecondHand{
+ height:1px;
+ width:1px;
+}
+div.Clock_Dot_small{
+ height:1px;
+ width:1px;
+}

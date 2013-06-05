@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<objShortNews xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://tempuri.org/">
+  <url>nonUrl</url>
+  <createDate>2012/11/26 10:31:17</createDate>
+  <source>ろーでぃんぐなう♪</source>
+  <convrted />
+  <titleCulc />
+  <laeList>
+    <objLeafAndEmotion>
+      <name>ろ</name>
+      <emotion>0</emotion>
+      <point>0</point>
+    </objLeafAndEmotion>
+    <objLeafAndEmotion>
+      <name>ー</name>
+      <emotion>0</emotion>
+      <point>0</point>
+    </objLeafAndEmotion>
+    <objLeafAndEmotion>
+      <name>で</name>
+      <emotion>0</emotion>
+      <point>0</point>
+    </objLeafAndEmotion>
+    <objLeafAndEmotion>
+      <name>ぃんぐなう</name>
+      <emotion>0</emotion>
+      <point>0</point>
+    </objLeafAndEmotion>
+    <objLeafAndEmotion>
+      <name>♪</name>
+      <emotion>0</emotion>
+      <point>0</point>
+    </objLeafAndEmotion>
+    <objLeafAndEmotion>
+      <name> </name>
+      <emotion>0</emotion>
+      <point>0</point>
+    </objLeafAndEmotion>
+    <objLeafAndEmotion>
+      <name> </name>
+      <emotion>0</emotion>
+      <point>0</point>
+    </objLeafAndEmotion>
+  </laeList>
+</objShortNews>

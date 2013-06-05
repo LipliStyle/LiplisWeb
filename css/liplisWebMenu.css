@@ -1,0 +1,152 @@
+
+#dock
+{
+	margin:0;
+	padding:0;
+	list-style:none;
+	position:fixed;
+	top:00px;
+	height:90%;
+	z-index:100;
+	background-color:#f0f0f0;
+	right:0;
+}
+
+#dock > li 
+{
+	width:30px; 
+	height:96px; 
+	margin:0 0 1px 0; 
+	background-color:#f0f0f0; 
+	background-repeat:no-repeat; 
+	background-position:right center;
+}
+
+#dock #logListPanel   {background-image:url("../window/logListPanel.png");   cursor:pointer;}
+#dock #settingPanel   {background-image:url("../window/settingPanel.png");   cursor:pointer;}
+#dock #operationPanel {background-image:url("../window/operationPanel.png"); cursor:pointer;}
+
+#dock > li:hover 
+{
+	background-position:-0px 0px;
+}
+
+#dock ul li
+{
+	padding:0 5px; 
+	border:solid 1px #f1f1f1;
+}
+
+#dock ul li:hover
+{
+	background:#D3DAED url("../window/item_bkg.png") repeat-x;
+	border:solid 1px #A8D8EB;
+}
+
+#dock ul li.header, #dock ul li .header:hover 
+{
+	background:#D3DAED url("../window/header_bkg.png") repeat-x;
+	border:solid 1px #F1F1F1;
+}
+
+#dock > li:hover ul 
+{
+	display:block; 
+}
+
+#dock > li ul 
+{
+	position:absolute; top:0;
+	right:-280px;
+	z-index:-1; 
+	width:280px; display:none;
+	background-color:#F1F1F1; 
+	border:solid 1px #969696;
+	padding:0px; margin:0px;
+	list-style:none;
+}
+
+#dock > li ul.docked 
+{
+	display:block;
+	z-index:-2;
+}
+
+.dock,.undock
+{
+	float:right;
+}
+
+.undock
+{
+	display:none;
+}
+
+#content 
+{
+	margin:10px 0 0 0;
+}
+
+.free
+{
+	opacity: 0.85;
+}
+
+ul.update-scroll {
+ list-style-type: none;
+ width: 400px;
+ height: 400px;
+ overflow: auto;
+ border: 1px solid #bbb;
+}
+
+ul.update-scroll a {
+ text-decoration: none;
+}
+
+
+/* ====================================================== */
+/*  メニュー基本定義                                      */
+/* ====================================================== */
+h2{
+	margin:0; padding: 5px 3px;
+	font-size: 1em;
+	color:#fff;
+}
+	
+ul{
+	margin:0 0 0 5px; padding: 0 0 0 0;
+	padding:0;
+}
+li{
+	list-style: none;
+	display:block;
+}
+li a{
+	display:block;
+	margin: 0; padding: 2px 0 3px 10px;
+	color: #1122cc;
+	background-color: #FFF;
+	border-bottom: 1px solid #999;
+
+	text-decoration:none;
+	
+}
+li a:hover{
+	color:#000000;
+	background-color: #FEE;
+}
+
+
+
+/* ====================================================== */
+/*  設定のヘッダー定義                                    */
+/* ====================================================== */
+li.liTitle{
+	display:block;
+	margin: 0; padding: 2px 0 3px 10px;
+	color: #FFFFFF;
+	background-color: #4169E1;
+	border-bottom: 1px solid #999;
+	border-right: 8px solid #669;
+}
