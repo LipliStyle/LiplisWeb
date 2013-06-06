@@ -2,8 +2,14 @@
 //  ClassName : LiplisCss
 //  概要      : リプリスウェブCSS設定
 //
-//  LiplisWeb
-//  Copyright(c) 2011-2013 LipliStyle sachin. All Rights Reserved. 
+//LiplisWeb
+// Copyright  :2013 LipliStyle. All Rights Reserved.
+// 
+// ライセンス : MIT License
+// ・本ソフトウェアは無保証です。作者は責任を追いません。
+// ・上記の著作権表示を記載して下さい。
+// ・上記の２項に同意頂ければ自由に使用して頂けます。
+//
 //=======================================================================
 
 
