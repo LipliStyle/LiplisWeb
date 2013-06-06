@@ -16,11 +16,6 @@ IE9
 
 LiplisWebについて
 ------
-#html{{
-<div align="center">
-<object data="Lili/liplisWeb.htm" type="text/html" title="Liplis" height="340" style="width:250px;"></object>
-</div>
-}}
 Web上に設置したり、プラットフォームを超えて実行ですることができるLiplisです。  
 右サイドに設置しているLiplisですが、このように簡単にどこにでも設置できます。  
 　
