@@ -25,7 +25,7 @@ Web上に設置したり、プラットフォームを超えて実行でする�
 　
 ライセンス
 ------
-Copyright : 2013 LipliStyle. All Rights Reserved.
+Copyright : 2013 LipliStyle.
  
 ライセンス : MIT License  
 ・本ソフトウェアは無保証です。作者は責任を追いません。  
