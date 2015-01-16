@@ -36,23 +36,23 @@ var lpsSettingDefine;
 
 //バッテリー情報の初期化
 window.addEventListener("load", function () {
-    var battery = navigator.battery || navigator.webkitBattery || navigator.mozBattery;
+	var battery = navigator.battery || navigator.webkitBattery || navigator.mozBattery;
 
-    if (!battery) {
+	if (!battery) {
 		return;
-    }
-    
-    battery.addEventListener("chargingchange", function () {
+	}
+	
+	battery.addEventListener("chargingchange", function () {
 		if (battery.charging) {
-		    chattingTest('充電開始ですっ!');
+			chattingTest('充電開始ですっ!');
 		} else {
-		    chattingTest('充電停止です。');
+			chattingTest('充電停止です。');
 		}
-    }, false);
+	}, false);
 
-    battery.addEventListener("levelchange", function () {
+	battery.addEventListener("levelchange", function () {
 		chattingTest('充電レベルが変更されました。現在の値は ' + this.level + ' です');
-    }, false);
+	}, false);
 }, false);
 
 ///====================================================================
@@ -66,38 +66,38 @@ window.addEventListener("load", function () {
 /// </summary>
 function init() {
 
-    //オブジェクトの初期化
-    lpsGlb = new liplisGlobal();
+	//オブジェクトの初期化
+	lpsGlb = new liplisGlobal();
 
-    //定数クラスの初期化
-    lpsConst = new liplisConst();
+	//定数クラスの初期化
+	lpsConst = new liplisConst();
 
-    //グリートリストの初期化
-    lpsGreetLst = new objChat();
+	//グリートリストの初期化
+	lpsGreetLst = new objChat();
 
-    //設定定義クラスの初期化
-    lpsSettingDefine = new liplisSettingDefine();
+	//設定定義クラスの初期化
+	lpsSettingDefine = new liplisSettingDefine();
 
-    //ユーザーエージェントの取得
-    getUserAgent();
+	//ユーザーエージェントの取得
+	getUserAgent();
 
-    //エモーションオブジェクトを取得する
-    loadLpsGlb();
-    
-    //ウインドウオブジェクトを取得する
-    loadLpsWindow();
+	//エモーションオブジェクトを取得する
+	loadLpsGlb();
+	
+	//ウインドウオブジェクトを取得する
+	loadLpsWindow();
 
 	// リフレッシュタイマーの設定
-    startTimer();
+	startTimer();
 
 	// アップデートタイマーの設定
-    setFreqence(10000);
+	setFreqence(10000);
 
 	//初期化セットタイマーのセット
-    setInitTimer();
+	setInitTimer();
 
-    //挨拶
-    greet();
+	//挨拶
+	greet();
 }
 
 
@@ -106,34 +106,34 @@ function init() {
 /// ボディオブジェクトを作成する
 /// </summary>
 function createObjBody(emotionStr) {
-    //結果ボディ配列
-    var bodyList = [];
+	//結果ボディ配列
+	var bodyList = [];
 
-    //カウンタ
-    var i = 0;
+	//カウンタ
+	var i = 0;
 
-    //目/口オブジェクト
-    var eye_1_c;
-    var eye_1_o;
-    var eye_2_c;
-    var eye_2_o;
-    var eye_3_c;
-    var eye_3_o;
-    
-    //xmlオブジェクトから要素を取り出す
-    eye_1_c = lpsGlb.xmlEmotion.getElementsByTagName(emotionStr + "11");
-    eye_1_o = lpsGlb.xmlEmotion.getElementsByTagName(emotionStr + "12");
-    eye_2_c = lpsGlb.xmlEmotion.getElementsByTagName(emotionStr + "21");
-    eye_2_o = lpsGlb.xmlEmotion.getElementsByTagName(emotionStr + "22");
-    eye_3_c = lpsGlb.xmlEmotion.getElementsByTagName(emotionStr + "31");
-    eye_3_o = lpsGlb.xmlEmotion.getElementsByTagName(emotionStr + "32");
+	//目/口オブジェクト
+	var eye_1_c;
+	var eye_1_o;
+	var eye_2_c;
+	var eye_2_o;
+	var eye_3_c;
+	var eye_3_o;
+	
+	//xmlオブジェクトから要素を取り出す
+	eye_1_c = lpsGlb.xmlEmotion.getElementsByTagName(emotionStr + "11");
+	eye_1_o = lpsGlb.xmlEmotion.getElementsByTagName(emotionStr + "12");
+	eye_2_c = lpsGlb.xmlEmotion.getElementsByTagName(emotionStr + "21");
+	eye_2_o = lpsGlb.xmlEmotion.getElementsByTagName(emotionStr + "22");
+	eye_3_c = lpsGlb.xmlEmotion.getElementsByTagName(emotionStr + "31");
+	eye_3_o = lpsGlb.xmlEmotion.getElementsByTagName(emotionStr + "32");
 
-    //ボディ配列に格納する
-    for (i = 0; i < eye_1_c.length; i = i + 1) {
-        bodyList.push(new objBody(eye_1_c[i].childNodes[0].nodeValue, eye_1_o[i].childNodes[0].nodeValue, eye_2_c[i].childNodes[0].nodeValue, eye_2_o[i].childNodes[0].nodeValue, eye_3_c[i].childNodes[0].nodeValue, eye_3_o[i].childNodes[0].nodeValue));
-    }
+	//ボディ配列に格納する
+	for (i = 0; i < eye_1_c.length; i = i + 1) {
+		bodyList.push(new objBody(eye_1_c[i].childNodes[0].nodeValue, eye_1_o[i].childNodes[0].nodeValue, eye_2_c[i].childNodes[0].nodeValue, eye_2_o[i].childNodes[0].nodeValue, eye_3_c[i].childNodes[0].nodeValue, eye_3_o[i].childNodes[0].nodeValue));
+	}
 
-    return bodyList;
+	return bodyList;
 }
 
 
@@ -142,34 +142,34 @@ function createObjBody(emotionStr) {
 /// スリープオブジェクトを作成する
 /// </summary>
 function createObjBodySleep(emotionStr) {
-    //結果ボディ配列
-    var bodyList = [];
+	//結果ボディ配列
+	var bodyList = [];
 
-    //カウンタ
-    var i = 0;
+	//カウンタ
+	var i = 0;
 
-    //目/口オブジェクト
-    var eye_1_c;
-    var eye_1_o;
-    var eye_2_c;
-    var eye_2_o;
-    var eye_3_c;
-    var eye_3_o;
-    
-    //xmlオブジェクトから要素を取り出す
-    eye_1_c = lpsGlb.xmlEmotion.getElementsByTagName(emotionStr + "11");
-    eye_1_o = lpsGlb.xmlEmotion.getElementsByTagName(emotionStr + "12");
-    eye_2_c = lpsGlb.xmlEmotion.getElementsByTagName(emotionStr + "21");
-    eye_2_o = lpsGlb.xmlEmotion.getElementsByTagName(emotionStr + "22");
-    eye_3_c = lpsGlb.xmlEmotion.getElementsByTagName(emotionStr + "31");
-    eye_3_o = lpsGlb.xmlEmotion.getElementsByTagName(emotionStr + "32");
+	//目/口オブジェクト
+	var eye_1_c;
+	var eye_1_o;
+	var eye_2_c;
+	var eye_2_o;
+	var eye_3_c;
+	var eye_3_o;
+	
+	//xmlオブジェクトから要素を取り出す
+	eye_1_c = lpsGlb.xmlEmotion.getElementsByTagName(emotionStr + "11");
+	eye_1_o = lpsGlb.xmlEmotion.getElementsByTagName(emotionStr + "12");
+	eye_2_c = lpsGlb.xmlEmotion.getElementsByTagName(emotionStr + "21");
+	eye_2_o = lpsGlb.xmlEmotion.getElementsByTagName(emotionStr + "22");
+	eye_3_c = lpsGlb.xmlEmotion.getElementsByTagName(emotionStr + "31");
+	eye_3_o = lpsGlb.xmlEmotion.getElementsByTagName(emotionStr + "32");
 
-    //ボディ配列に格納する
-    for (i = 0; i < eye_1_c.length; i = i + 1) {
-        bodyList.push(new objBody(eye_1_c[i].childNodes[0].nodeValue, eye_1_o[i].childNodes[0].nodeValue, eye_2_c[i].childNodes[0].nodeValue, eye_2_o[i].childNodes[0].nodeValue, eye_3_c[i].childNodes[0].nodeValue, eye_3_o[i].childNodes[0].nodeValue));
-    }
+	//ボディ配列に格納する
+	for (i = 0; i < eye_1_c.length; i = i + 1) {
+		bodyList.push(new objBody(eye_1_c[i].childNodes[0].nodeValue, eye_1_o[i].childNodes[0].nodeValue, eye_2_c[i].childNodes[0].nodeValue, eye_2_o[i].childNodes[0].nodeValue, eye_3_c[i].childNodes[0].nodeValue, eye_3_o[i].childNodes[0].nodeValue));
+	}
 
-    return bodyList;
+	return bodyList;
 }
 
 /// <summary>
@@ -180,7 +180,7 @@ function loadLpsWindow() {
 	//ウインドウオブジェクト
 	lpsWindow = new objLiplisWindow();
 	setWindow(0);
-    return;
+	return;
 }
 
 ///==============================================================================================
@@ -203,7 +203,7 @@ function initSetting() {
 	setSettingGenreNico();
 	setSettingWindow();
 	setSettingFlgSkipOn();
-    return;
+	return;
 }
 
 
@@ -213,9 +213,9 @@ function initSetting() {
 /// </summary>
 function setSettingChatMode() {
 	//IEはブロック。ごめんなさい！
-    if (lpsGlb.agent == 'ie') {
-        return;
-    }
+	if (lpsGlb.agent == 'ie') {
+		return;
+	}
 
 	if (localStorage[lpsSettingDefine.chatMode]) {
 		lpsGlb.chatMode = localStorage[lpsSettingDefine.chatMode];
@@ -225,7 +225,7 @@ function setSettingChatMode() {
 	} 
 
 	$("input[name='freqlist']:eq("+ lpsGlb.chatMode +")").attr("checked", true);
-    return;
+	return;
 }
 
 
@@ -235,9 +235,9 @@ function setSettingChatMode() {
 /// </summary>
 function setSettingActiveMode() {
 	//IEはブロック。ごめんなさい！
-    if (lpsGlb.agent == 'ie') {
-        return;
-    }
+	if (lpsGlb.agent == 'ie') {
+		return;
+	}
 	
 	if (localStorage[lpsSettingDefine.activeMode]) {
 		lpsGlb.activeMode = localStorage[lpsSettingDefine.activeMode];
@@ -247,7 +247,7 @@ function setSettingActiveMode() {
 	} 
 
 	$("input[name='activelist']:eq("+ lpsGlb.activeMode +")").attr("checked", true);
-    return;
+	return;
 }
 
 /// <summary>
@@ -256,9 +256,9 @@ function setSettingActiveMode() {
 /// </summary>
 function setSettingGenreNews() {
 	//IEはブロック。ごめんなさい！
-    if (lpsGlb.agent == 'ie') {
-        return;
-    }
+	if (lpsGlb.agent == 'ie') {
+		return;
+	}
 	
 	if (localStorage[lpsSettingDefine.genreNews]) {
 		lpsGlb.genreNews = localStorage[lpsSettingDefine.genreNews];
@@ -268,7 +268,7 @@ function setSettingGenreNews() {
 	} 
 
 	$("#" + lpsSettingDefine.genreNews).attr("checked", lpsGlb.genreNews == 1);
-    return;
+	return;
 }
 
 /// <summary>
@@ -277,9 +277,9 @@ function setSettingGenreNews() {
 /// </summary>
 function setSettingGenre2ch() {
 	//IEはブロック。ごめんなさい！
-    if (lpsGlb.agent == 'ie') {
-        return;
-    }
+	if (lpsGlb.agent == 'ie') {
+		return;
+	}
 	
 	if (localStorage[lpsSettingDefine.genre2ch]) {
 		lpsGlb.genre2ch = localStorage[lpsSettingDefine.genre2ch];
@@ -289,7 +289,7 @@ function setSettingGenre2ch() {
 	} 
 
 	$("#" + lpsSettingDefine.genre2ch).attr("checked", lpsGlb.genre2ch == 1);
-    return;
+	return;
 }
 
 
@@ -299,9 +299,9 @@ function setSettingGenre2ch() {
 /// </summary>
 function setSettingGenreNico() {
 	//IEはブロック。ごめんなさい！
-    if (lpsGlb.agent == 'ie') {
-        return;
-    }
+	if (lpsGlb.agent == 'ie') {
+		return;
+	}
 	
 	if (localStorage[lpsSettingDefine.genrenico]) {
 		lpsGlb.genrenico = localStorage[lpsSettingDefine.genrenico];
@@ -311,7 +311,7 @@ function setSettingGenreNico() {
 	} 
 
 	$("#" + lpsSettingDefine.genrenico).attr("checked", lpsGlb.genrenico == 1);
-    return;
+	return;
 }
 
 /// <summary>
@@ -320,9 +320,9 @@ function setSettingGenreNico() {
 /// </summary>
 function setSettingWindow() {
 	//IEはブロック。ごめんなさい！
-    if (lpsGlb.agent == 'ie') {
-        return;
-    }
+	if (lpsGlb.agent == 'ie') {
+		return;
+	}
 	
 	if (localStorage[lpsSettingDefine.window]) {
 		lpsGlb.window = localStorage[lpsSettingDefine.window];
@@ -332,7 +332,7 @@ function setSettingWindow() {
 	} 
 
 	$('#windowlist').val(lpsGlb.window);
-    return;
+	return;
 }
 
 /// <summary>
@@ -341,9 +341,9 @@ function setSettingWindow() {
 /// </summary>
 function setSettingFlgSkipOn() {
 	//IEはブロック。ごめんなさい！
-    if (lpsGlb.agent == 'ie') {
-        return;
-    }
+	if (lpsGlb.agent == 'ie') {
+		return;
+	}
 	
 	
 	if (localStorage[lpsSettingDefine.flgSkipOn]) {
@@ -355,7 +355,7 @@ function setSettingFlgSkipOn() {
 
 	$("#" + lpsSettingDefine.flgSkipOn).attr("checked", lpsGlb.flgSkipOn == 1);
 
-    return;
+	return;
 }
 
 ///==============================================================================================
@@ -368,9 +368,9 @@ function setSettingFlgSkipOn() {
 /// タイマーイベント
 /// </summary>
 function on_timerRef() {
-    chatting();
-    chage_body();
-    //chage_calendar();   
+	chatting();
+	chage_body();
+	//chage_calendar();   
 }
 
 /// <summary>
@@ -384,13 +384,13 @@ function on_timerUpd() {
 /// 初期化タイマーイベント
 /// </summary>
 function on_timerInit() {
-    //設定の反映
-    initSetting();
-        
-    //ウインドウの設定
+	//設定の反映
+	initSetting();
+		
+	//ウインドウの設定
 	setWindow(lpsGlb.window);
-    
-    //タイマー破棄
+	
+	//タイマー破棄
 	clearInterval(lpsGlb.timerFirstInit);
 }
 
@@ -399,21 +399,21 @@ function on_timerInit() {
 /// ネクスト クリック
 /// </summary>
 function nextLiplis() {
-    setNext();
+	setNext();
 }
 
 /// <summary>
 /// ストップボタン クリック
 /// </summary>
 function stopLiplis() {
-    setSleep();
+	setSleep();
 }
 
 /// <summary>
 /// ジャンプボタン クリック
 /// </summary>
 function jumpLiplistyle() {
-    location.href = "http://liplis.mine.nu";
+	location.href = "http://liplis.mine.nu";
 }
 
 /// <summary>
@@ -445,7 +445,7 @@ function chatNowTime() {
 	str = lpsGreetLst.nowTime.replace("[?]", strTime) + '　　　';
 
 	//発言
-    chattingTest(str)
+	chattingTest(str)
 }
 
 ///==============================================================================================
@@ -459,7 +459,7 @@ function chatNowTime() {
 /// </summary>
 function startTimer() {
 	clearInterval(lpsGlb.timerRefresh);
-    lpsGlb.timerRefresh = setInterval(on_timerRef, 100);
+	lpsGlb.timerRefresh = setInterval(on_timerRef, 100);
 }
 
 /// <summary>
@@ -474,7 +474,7 @@ function stopTimer() {
 /// </summary>
 function setInitTimer() {
 	clearInterval(lpsGlb.timerFirstInit);
-    lpsGlb.timerFirstInit = setInterval(on_timerInit, 1000);
+	lpsGlb.timerFirstInit = setInterval(on_timerInit, 1000);
 }
 
 
@@ -503,10 +503,10 @@ function setNext() {
 	else
 	{
 		setCssSleep();
-	    lpsGlb.sleepFlg = 0;
-	    lpsGlb.chatFlg = 0;
-	    selectFreqence();
-	    loadChatTopic();
+		lpsGlb.sleepFlg = 0;
+		lpsGlb.chatFlg = 0;
+		selectFreqence();
+		loadChatTopic();
 	}
 }
 
@@ -520,9 +520,9 @@ function setSleep() {
 		lpsGlb.sleepFlg = 1;
 		clearInterval(lpsGlb.timerRefresh);
 		clearInterval(lpsGlb.timerUpdate);
-	    setImage(99);
-	    message = document.getElementById('message');
-        message.innerHTML = "zzz";
+		setImage(99);
+		message = document.getElementById('message');
+		message.innerHTML = "zzz";
 	}
 	else
 	{
@@ -530,7 +530,7 @@ function setSleep() {
 		lpsGlb.sleepFlg = 0;
 		lpsGlb.chatFlg = 0;
 		selectFreqence();
-	   	greet();
+		greet();
 	}
 }
 
@@ -559,127 +559,127 @@ function openSetting() {
 /// チャット
 /// </summary>
 function chatting() {
-    var message;    //メッセージ
-    var name;
-    //--- チェックフェーズ --------------------
-    //チャットフラグチェック
-    //alert(lpsGlb.xmlEmotionEndFlg);
-    if (lpsGlb.xmlEmotionEndFlg != 1) { return; }
-    if (lpsGlb.chatFlg != 1) { return; }
+	var message;    //メッセージ
+	var name;
+	//--- チェックフェーズ --------------------
+	//チャットフラグチェック
+	//alert(lpsGlb.xmlEmotionEndFlg);
+	if (lpsGlb.xmlEmotionEndFlg != 1) { return; }
+	if (lpsGlb.chatFlg != 1) { return; }
 
-    //nullチェック
-    if (!lpsGlb.jsonDoc) {
-    	if(lpsGlb.skipFlg == 1)
-    	{
-    		chatEnd();
-    	}
-        return;
-    }
+	//nullチェック
+	if (!lpsGlb.jsonDoc) {
+		if(lpsGlb.skipFlg == 1)
+		{
+			chatEnd();
+		}
+		return;
+	}
 
-    //nullチェック2
-    if (!lpsGlb.jsonDoc.laeList) {
-        return;
-    }
-    //nullチェック3
-    if (!lpsGlb.jsonDoc.laeList[lpsGlb.nowIdx]) {
-        return;
-    }
-        
-    //nullチェック4
-    if (!lpsGlb.jsonDoc.laeList[lpsGlb.nowIdx].name) {
-        return;
-    }
+	//nullチェック2
+	if (!lpsGlb.jsonDoc.laeList) {
+		return;
+	}
+	//nullチェック3
+	if (!lpsGlb.jsonDoc.laeList[lpsGlb.nowIdx]) {
+		return;
+	}
+		
+	//nullチェック4
+	if (!lpsGlb.jsonDoc.laeList[lpsGlb.nowIdx].name) {
+		return;
+	}
 
-    //--- ワードセット、感情チェックフェーズ --------------------
-    //送りワード文字数チェック
-    if (lpsGlb.wordIdx >= lpsGlb.jsonDoc.laeList[lpsGlb.nowIdx].name.length) {
+	//--- ワードセット、感情チェックフェーズ --------------------
+	//送りワード文字数チェック
+	if (lpsGlb.wordIdx >= lpsGlb.jsonDoc.laeList[lpsGlb.nowIdx].name.length) {
 
-        do {
-            //次ワード遷移
-            lpsGlb.nowIdx++;
+		do {
+			//次ワード遷移
+			lpsGlb.nowIdx++;
 
-            if (lpsGlb.nowIdx >= lpsGlb.jsonDoc.laeList.length-1) {
-                //チャット終了
-                chatEnd();
+			if (lpsGlb.nowIdx >= lpsGlb.jsonDoc.laeList.length-1) {
+				//チャット終了
+				chatEnd();
 
-                //帰る
-                return;
-            }
+				//帰る
+				return;
+			}
 
-            //なうインデックスの初期化
-            lpsGlb.wordIdx = 0;
+			//なうインデックスの初期化
+			lpsGlb.wordIdx = 0;
 
-            //ナウワードの初期化
-            lpsGlb.nowWord = lpsGlb.jsonDoc.laeList[lpsGlb.nowIdx].name;
+			//ナウワードの初期化
+			lpsGlb.nowWord = lpsGlb.jsonDoc.laeList[lpsGlb.nowIdx].name;
 
-        } while (!lpsGlb.nowWord);
+		} while (!lpsGlb.nowWord);
 
-        //エモーション取得
-        lpsGlb.prvEmotion = lpsGlb.nowEmotion;
-        lpsGlb.nowEmotion = lpsGlb.jsonDoc.laeList[lpsGlb.nowIdx].emotion;
-        lpsGlb.nowPoint = lpsGlb.jsonDoc.laeList[lpsGlb.nowIdx].point;
+		//エモーション取得
+		lpsGlb.prvEmotion = lpsGlb.nowEmotion;
+		lpsGlb.nowEmotion = lpsGlb.jsonDoc.laeList[lpsGlb.nowIdx].emotion;
+		lpsGlb.nowPoint = lpsGlb.jsonDoc.laeList[lpsGlb.nowIdx].point;
 
-        //エモーションチェック
-        if (lpsGlb.prvEmotion != lpsGlb.nowEmotion) {
-            //前回からエモーションが変化していたらセットする
-            setImage(lpsGlb.nowEmotion);
-        }
+		//エモーションチェック
+		if (lpsGlb.prvEmotion != lpsGlb.nowEmotion) {
+			//前回からエモーションが変化していたらセットする
+			setImage(lpsGlb.nowEmotion);
+		}
 
-    }
-    //初回ワードチェック
-    else if (lpsGlb.wordIdx == 0) {
-        message = document.getElementById('message');
-        message.innerHTML = "";
+	}
+	//初回ワードチェック
+	else if (lpsGlb.wordIdx == 0) {
+		message = document.getElementById('message');
+		message.innerHTML = "";
 
-        lpsGlb.wordIdx = 0;
-        lpsGlb.nowWord = lpsGlb.jsonDoc.laeList[lpsGlb.nowIdx].name;
+		lpsGlb.wordIdx = 0;
+		lpsGlb.nowWord = lpsGlb.jsonDoc.laeList[lpsGlb.nowIdx].name;
 
-        //空だったら、空じゃなくなるまで繰り返す
-        if (!lpsGlb.nowWord) {
-            do {
-                //次ワード遷移
-                lpsGlb.nowIdx++;
+		//空だったら、空じゃなくなるまで繰り返す
+		if (!lpsGlb.nowWord) {
+			do {
+				//次ワード遷移
+				lpsGlb.nowIdx++;
 
-                if (lpsGlb.nowIdx >= lpsGlb.jsonDoc.laeList.length -1) {
-                    //チャット終了
-                    chatEnd();
+				if (lpsGlb.nowIdx >= lpsGlb.jsonDoc.laeList.length -1) {
+					//チャット終了
+					chatEnd();
 
-                    //帰る
-                    return;
-                }
+					//帰る
+					return;
+				}
 
-                //なうインデックスの初期化
-                lpsGlb.wordIdx = 0;
+				//なうインデックスの初期化
+				lpsGlb.wordIdx = 0;
 
-                //ナウワードの初期化
-                lpsGlb.nowWord = lpsGlb.jsonDoc.laeList[lpsGlb.nowIdx].name;
+				//ナウワードの初期化
+				lpsGlb.nowWord = lpsGlb.jsonDoc.laeList[lpsGlb.nowIdx].name;
 
-            } while (!lpsGlb.nowWord);
-        }
+			} while (!lpsGlb.nowWord);
+		}
 
-        //エモーションチェック
-        lpsGlb.prvEmotion = 0;
-        lpsGlb.nowEmotion = lpsGlb.jsonDoc.laeList[lpsGlb.nowIdx].emotion;
-        lpsGlb.nowPoint = lpsGlb.jsonDoc.laeList[lpsGlb.nowIdx].point;
-        setImage(0);
-    }
-    //おしゃべり中は何もしない
-    else {
+		//エモーションチェック
+		lpsGlb.prvEmotion = 0;
+		lpsGlb.nowEmotion = lpsGlb.jsonDoc.laeList[lpsGlb.nowIdx].emotion;
+		lpsGlb.nowPoint = lpsGlb.jsonDoc.laeList[lpsGlb.nowIdx].point;
+		setImage(0);
+	}
+	//おしゃべり中は何もしない
+	else {
 
-    }
+	}
 
-    //--- メッセージセットフェーズ --------------------
-    //メッセージの取得と次文字のセット
-    message = document.getElementById('message');
-    lpsGlb.nowReadWord = lpsGlb.nowReadWord + lpsGlb.nowWord.substr(lpsGlb.wordIdx, 1);
-    if (lpsGlb.jsonDoc.url == "nonUrl") {
-        message.innerHTML = lpsGlb.nowReadWord;
-    }
-    else {
-        message.innerHTML = '<a href="' + lpsGlb.jsonDoc.url + '" target="_blank" style="text-decoration:none;"/>' + lpsGlb.nowReadWord + '</a>';
-    }
+	//--- メッセージセットフェーズ --------------------
+	//メッセージの取得と次文字のセット
+	message = document.getElementById('message');
+	lpsGlb.nowReadWord = lpsGlb.nowReadWord + lpsGlb.nowWord.substr(lpsGlb.wordIdx, 1);
+	if (lpsGlb.jsonDoc.url == "nonUrl") {
+		message.innerHTML = lpsGlb.nowReadWord;
+	}
+	else {
+		message.innerHTML = '<a href="' + lpsGlb.jsonDoc.url + '" target="_blank" style="text-decoration:none;"/>' + lpsGlb.nowReadWord + '</a>';
+	}
 
-    lpsGlb.wordIdx++;
+	lpsGlb.wordIdx++;
 }
 
 /// <summary>
@@ -713,25 +713,25 @@ function skipChatting() {
 /// 指定てきすとをおしゃべり
 /// </summary>
 function chattingTest(str) {
-    lpsGlb.xmlDoc = null;
-    lpsGlb.jsonDoc = null;
-    getText(str);
-    chatStart();
+	lpsGlb.xmlDoc = null;
+	lpsGlb.jsonDoc = null;
+	getText(str);
+	chatStart();
 }
 
 /// <summary>
 /// チャットデータのロード
 /// </summary>
 function loadChatTopic() {
-    if (lpsGlb.sleepFlg == 1) {
-        return;
-    }
-    setCssLiplisLog();
-    lpsGlb.xmlDoc = null;
-    lpsGlb.jsonDoc = null;
-    getShrotNews();
-    chatStart();
-    setCssLiplisThinkingNot();
+	if (lpsGlb.sleepFlg == 1) {
+		return;
+	}
+	setCssLiplisLog();
+	lpsGlb.xmlDoc = null;
+	lpsGlb.jsonDoc = null;
+	getShrotNews();
+	chatStart();
+	setCssLiplisThinkingNot();
 }
 
 
@@ -739,32 +739,32 @@ function loadChatTopic() {
 /// チャットをスタートする
 /// </summary>
 function chatStart() {
-    lpsGlb.wordIdx = 0;
-    lpsGlb.nowIdx = 0;
-    lpsGlb.nowWord = "";
-    lpsGlb.nowReadWord = "";
-    var message = document.getElementById('message');
-    if(message)
-    {
-        message.innerHTML = ""
-    }
+	lpsGlb.wordIdx = 0;
+	lpsGlb.nowIdx = 0;
+	lpsGlb.nowWord = "";
+	lpsGlb.nowReadWord = "";
+	var message = document.getElementById('message');
+	if(message)
+	{
+		message.innerHTML = ""
+	}
 
-    lpsGlb.chatFlg = 1;
-    startTimer();
+	lpsGlb.chatFlg = 1;
+	startTimer();
 }
 
 /// <summary>
 /// チャットを終了する
 /// </summary>
 function chatEnd() {
-    lpsGlb.chatFlg = 0;
-    lpsGlb.xmlEndFlg = 0;
-    lpsGlb.skipFlg = 0;
-    appendLog(lpsGlb.nowReadWord, lpsGlb.jsonDoc.url);
-    stopTimer();
-    
-    //アップデートを再開させる
-    selectFreqence();
+	lpsGlb.chatFlg = 0;
+	lpsGlb.xmlEndFlg = 0;
+	lpsGlb.skipFlg = 0;
+	appendLog(lpsGlb.nowReadWord, lpsGlb.jsonDoc.url);
+	stopTimer();
+	
+	//アップデートを再開させる
+	selectFreqence();
 }
 
 
@@ -772,13 +772,13 @@ function chatEnd() {
 /// 挨拶
 /// </summary>
 function greet() {
-    if (lpsGlb.agent == 'ie') {
-        //IEはあいさつエラーとなるので、いきなりしゃべる
-        setNext();
-    }
-    else {
-        chattingTest(lpsGreetLst.greet[Math.floor(Math.random() * lpsGreetLst.greet.length)]);
-    }
+	if (lpsGlb.agent == 'ie') {
+		//IEはあいさつエラーとなるので、いきなりしゃべる
+		setNext();
+	}
+	else {
+		chattingTest(lpsGreetLst.greet[Math.floor(Math.random() * lpsGreetLst.greet.length)]);
+	}
 }
 
 
@@ -786,7 +786,7 @@ function greet() {
 /// 会話頻度の選択
 /// </summary>
 function selectFrequenceLiplis() {
-    selectFreqence();
+	selectFreqence();
 }
 
 /// <summary>
@@ -794,23 +794,23 @@ function selectFrequenceLiplis() {
 /// </summary>
 function chatBatteryInfo() {
 	try {
-	    var battery = navigator.battery || navigator.webkitBattery || navigator.mozBattery;
+		var battery = navigator.battery || navigator.webkitBattery || navigator.mozBattery;
 	   
-	    //未対応メッセージ
-	    if (!battery) {
+		//未対応メッセージ
+		if (!battery) {
 			chattingTest('Battery Status APIに対応していません。　　　');
 			return;
-	    }
-	    
-	    //％表示の文字列に変換
-	    var batteryStr = String(battery.level*100);
-	    
-	    //出力
-	    chattingTest('現在の充電レベルは' + batteryStr + '%です　　　');
-	    }
-    catch (e) {
-        chattingTest('Battery Status APIに対応していません。　　　');
-    }
+		}
+		
+		//％表示の文字列に変換
+		var batteryStr = String(battery.level*100);
+		
+		//出力
+		chattingTest('現在の充電レベルは' + batteryStr + '%です　　　');
+		}
+	catch (e) {
+		chattingTest('Battery Status APIに対応していません。　　　');
+	}
 
 }
 
@@ -818,98 +818,98 @@ function chatBatteryInfo() {
 /// 発言頻度の設定
 /// </summary>
 function selectFreqence() {
-    var i;
-    var items = document.getElementsByName('freqlist');
-    var selIdx = -1;
-    //ラジオボタンの選択状況をチェック
-    for (i = 0; i <= items.length - 1; i++) {
-        if (items[i].checked) {
-            selIdx = i;
-        }
-    }
+	var i;
+	var items = document.getElementsByName('freqlist');
+	var selIdx = -1;
+	//ラジオボタンの選択状況をチェック
+	for (i = 0; i <= items.length - 1; i++) {
+		if (items[i].checked) {
+			selIdx = i;
+		}
+	}
 
-    if (selIdx != -1) {
-        //おしゃべり
-        if (selIdx == 0) {
-            setFreqence(10000);
-            //ふつう
-        } else if (selIdx == 1) {
-            setFreqence(30000);
-            //控えめ
-        } else if (selIdx == 2) {
-            setFreqence(60000);
-        }
-        
-        //設定の保存
-        setLocalStrageData(lpsSettingDefine.chatMode,selIdx);        
-    }
+	if (selIdx != -1) {
+		//おしゃべり
+		if (selIdx == 0) {
+			setFreqence(10000);
+			//ふつう
+		} else if (selIdx == 1) {
+			setFreqence(30000);
+			//控えめ
+		} else if (selIdx == 2) {
+			setFreqence(60000);
+		}
+		
+		//設定の保存
+		setLocalStrageData(lpsSettingDefine.chatMode,selIdx);        
+	}
 }
 
 /// <summary>
 /// 発言頻度の設定
 /// </summary>
 function setFreqence(val) {
-    clearInterval(lpsGlb.timerUpdate);
-    lpsGlb.timerUpdate = setInterval(on_timerUpd, val);
+	clearInterval(lpsGlb.timerUpdate);
+	lpsGlb.timerUpdate = setInterval(on_timerUpd, val);
 }
 
 /// <summary>
 /// アクティブ度の設定
 /// </summary>
 function selectActive() {
-    var i;
-    var items = document.getElementsByName('activelist');
-    var selIdx = -1;
-    //ラジオボタンの選択状況をチェック
-    for (i = 0; i <= items.length - 1; i++) {
-        if (items[i].checked) {
-            selIdx = i;
-        }
-    }
-    
-    if (selIdx != -1) {
-        
-        //設定の保存
-        setLocalStrageData(lpsSettingDefine.activeMode,selIdx);      
-    }
+	var i;
+	var items = document.getElementsByName('activelist');
+	var selIdx = -1;
+	//ラジオボタンの選択状況をチェック
+	for (i = 0; i <= items.length - 1; i++) {
+		if (items[i].checked) {
+			selIdx = i;
+		}
+	}
+	
+	if (selIdx != -1) {
+		
+		//設定の保存
+		setLocalStrageData(lpsSettingDefine.activeMode,selIdx);      
+	}
 }
 
 /// <summary>
 /// ジャンルの設定
 /// </summary>
 function selectGenre() {
-    if($('#genreNews').attr('checked'))
-    {
-    	setLocalStrageData(lpsSettingDefine.genreNews,'1'); 
-    	lpsGlb.genreNews = '1';
-    }
-    else
-    {
-    	setLocalStrageData(lpsSettingDefine.genreNews,'0'); 
-    	lpsGlb.genreNews = '0';
-    }
-    
-    if($('#genre2ch').attr('checked'))
-    {
-    	setLocalStrageData(lpsSettingDefine.genre2ch,'1'); 
-    	lpsGlb.genre2ch = '1';
-    }
-    else
-    {
-    	setLocalStrageData(lpsSettingDefine.genre2ch,'0'); 
-    	lpsGlb.genre2ch = '0';
-    }
-    
-    if($('#genrenico').attr('checked'))
-    {
-    	setLocalStrageData(lpsSettingDefine.genrenico,'1'); 
-    	lpsGlb.genrenico = '1';
-    }
-    else
-    {
-    	setLocalStrageData(lpsSettingDefine.genrenico,'0'); 
-    	lpsGlb.genrenico = '0';
-    }
+	if($('#genreNews').attr('checked'))
+	{
+		setLocalStrageData(lpsSettingDefine.genreNews,'1'); 
+		lpsGlb.genreNews = '1';
+	}
+	else
+	{
+		setLocalStrageData(lpsSettingDefine.genreNews,'0'); 
+		lpsGlb.genreNews = '0';
+	}
+	
+	if($('#genre2ch').attr('checked'))
+	{
+		setLocalStrageData(lpsSettingDefine.genre2ch,'1'); 
+		lpsGlb.genre2ch = '1';
+	}
+	else
+	{
+		setLocalStrageData(lpsSettingDefine.genre2ch,'0'); 
+		lpsGlb.genre2ch = '0';
+	}
+	
+	if($('#genrenico').attr('checked'))
+	{
+		setLocalStrageData(lpsSettingDefine.genrenico,'1'); 
+		lpsGlb.genrenico = '1';
+	}
+	else
+	{
+		setLocalStrageData(lpsSettingDefine.genrenico,'0'); 
+		lpsGlb.genrenico = '0';
+	}
 }
 
 /// <summary>
@@ -927,16 +927,16 @@ function selectWindow() {
 /// スキップフラグの設定
 /// </summary>
 function selectSkip() {
-    if($('#flgSkipOn').attr('checked'))
-    {
-    	setLocalStrageData(lpsSettingDefine.flgSkipOn,'1'); 
-    	lpsGlb.flgSkipOn = '1';
-    }
-    else
-    {
-    	setLocalStrageData(lpsSettingDefine.flgSkipOn,'0'); 
-    	lpsGlb.flgSkipOn = '0';
-    }
+	if($('#flgSkipOn').attr('checked'))
+	{
+		setLocalStrageData(lpsSettingDefine.flgSkipOn,'1'); 
+		lpsGlb.flgSkipOn = '1';
+	}
+	else
+	{
+		setLocalStrageData(lpsSettingDefine.flgSkipOn,'0'); 
+		lpsGlb.flgSkipOn = '0';
+	}
 }
 
 
@@ -950,67 +950,67 @@ function selectSkip() {
 /// ボディ変更
 /// </summary>
 function chage_body() {
-    //--- チェックフェーズ --------------------
-    //チャットフラグチェック
-    //alert(lpsGlb.xmlEmotionEndFlg);
-    if (lpsGlb.xmlEmotionEndFlg != 1) { return; }
+	//--- チェックフェーズ --------------------
+	//チャットフラグチェック
+	//alert(lpsGlb.xmlEmotionEndFlg);
+	if (lpsGlb.xmlEmotionEndFlg != 1) { return; }
 
-    //口パクチェック
-    if (lpsGlb.chatFlg == 1) {
-        
-        if (lpsGlb.mouthCnt <= 0) {
-            //カウントの初期化
-            lpsGlb.mouthCnt = 4;
+	//口パクチェック
+	if (lpsGlb.chatFlg == 1) {
+		
+		if (lpsGlb.mouthCnt <= 0) {
+			//カウントの初期化
+			lpsGlb.mouthCnt = 4;
 
-            if (lpsGlb.blinkCnt <= 0) {
-                //まばたきカウントの初期化
-                lpsGlb.blinkCnt = getBlinkCnt();
-                document.liplisBody.src = lpsGlb.nowObject.Eye1_Mouth1.src;
-            }
-            else if (lpsGlb.blinkCnt == 1) {
-                document.liplisBody.src = lpsGlb.nowObject.Eye2_Mouth1.src;
-            }
-            else if (lpsGlb.blinkCnt == 2) {
-                document.liplisBody.src = lpsGlb.nowObject.Eye3_Mouth1.src;
-            }
-            else if (lpsGlb.blinkCnt == 3) {
-                document.liplisBody.src = lpsGlb.nowObject.Eye2_Mouth1.src;
-            }
-            else {
-                document.liplisBody.src = lpsGlb.nowObject.Eye1_Mouth1.src;
-            }
-            
-        }
-        else if (lpsGlb.mouthCnt == 2) {
-            if (lpsGlb.blinkCnt <= 0) {
-                //まばたきカウントの初期化
-                lpsGlb.blinkCnt = getBlinkCnt();
-                document.liplisBody.src = lpsGlb.nowObject.Eye1_Mouth2.src;
-            }
-            else if (lpsGlb.blinkCnt == 1) {
-                document.liplisBody.src = lpsGlb.nowObject.Eye2_Mouth2.src;
-            }
-            else if (lpsGlb.blinkCnt == 2) {
-                document.liplisBody.src = lpsGlb.nowObject.Eye3_Mouth2.src;
-            }
-            else if (lpsGlb.blinkCnt == 3) {
-                document.liplisBody.src = lpsGlb.nowObject.Eye2_Mouth2.src;
-            }
-            else {
-                document.liplisBody.src = lpsGlb.nowObject.Eye1_Mouth2.src;
-            }
+			if (lpsGlb.blinkCnt <= 0) {
+				//まばたきカウントの初期化
+				lpsGlb.blinkCnt = getBlinkCnt();
+				document.liplisBody.src = lpsGlb.nowObject.Eye1_Mouth1.src;
+			}
+			else if (lpsGlb.blinkCnt == 1) {
+				document.liplisBody.src = lpsGlb.nowObject.Eye2_Mouth1.src;
+			}
+			else if (lpsGlb.blinkCnt == 2) {
+				document.liplisBody.src = lpsGlb.nowObject.Eye3_Mouth1.src;
+			}
+			else if (lpsGlb.blinkCnt == 3) {
+				document.liplisBody.src = lpsGlb.nowObject.Eye2_Mouth1.src;
+			}
+			else {
+				document.liplisBody.src = lpsGlb.nowObject.Eye1_Mouth1.src;
+			}
+			
+		}
+		else if (lpsGlb.mouthCnt == 2) {
+			if (lpsGlb.blinkCnt <= 0) {
+				//まばたきカウントの初期化
+				lpsGlb.blinkCnt = getBlinkCnt();
+				document.liplisBody.src = lpsGlb.nowObject.Eye1_Mouth2.src;
+			}
+			else if (lpsGlb.blinkCnt == 1) {
+				document.liplisBody.src = lpsGlb.nowObject.Eye2_Mouth2.src;
+			}
+			else if (lpsGlb.blinkCnt == 2) {
+				document.liplisBody.src = lpsGlb.nowObject.Eye3_Mouth2.src;
+			}
+			else if (lpsGlb.blinkCnt == 3) {
+				document.liplisBody.src = lpsGlb.nowObject.Eye2_Mouth2.src;
+			}
+			else {
+				document.liplisBody.src = lpsGlb.nowObject.Eye1_Mouth2.src;
+			}
 
-        }
-        else {
+		}
+		else {
 
-        }
-    }
+		}
+	}
 
-    lpsGlb.mouthCnt--;
-    lpsGlb.blinkCnt--;
+	lpsGlb.mouthCnt--;
+	lpsGlb.blinkCnt--;
 
-    //エモーションチェック
-    //とりあえずなし
+	//エモーションチェック
+	//とりあえずなし
 
 }
 
@@ -1019,106 +1019,106 @@ function chage_body() {
 /// 引数   : pEmotion : int
 /// 戻り値 : なし(lpsGlb.nowObjectへのセット)
 function setImage(pEmotion) {
-    try {
+	try {
 
-        if (pEmotion == 0) {
-            lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.normal);
-        }
-        else if (pEmotion == 1) {
-            if (lpsGlb.nowPoint >= 0) {
-                lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.joyP);
-            } else {
-                lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.joyM);
-            }
-        }
-        else if (pEmotion == 2) {
-            if (lpsGlb.nowPoint >= 0) {
-                lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.admirationP);
-            } else {
-                lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.admirationM);
-            }
-        }
-        else if (pEmotion == 3) {
-            if (lpsGlb.nowPoint >= 0) {
-                lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.peaceP);
-            } else {
-                lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.peaceM);
-            }
-        }
-        else if (pEmotion == 4) {
-            if (lpsGlb.nowPoint >= 0) {
-                lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.ecstasyP);
-            } else {
-                lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.ecstasyM);
-            }
-        }
-        else if (pEmotion == 5) {
-            if (lpsGlb.nowPoint >= 0) {
-                lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.amazementP);
-            } else {
-                lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.amazementM);
-            }
-        }
-        else if (pEmotion == 6) {
-            if (lpsGlb.nowPoint >= 0) {
-                lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.rageP);
-            } else {
-                lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.rageM);
-            }
-        }
-        else if (pEmotion == 7) {
-            if (lpsGlb.nowPoint >= 0) {
-                lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.interestP);
-            } else {
-                lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.interestM);
-            }
-        }
-        else if (pEmotion == 8) {
-            if (lpsGlb.nowPoint >= 0) {
-                lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.respectP);
-            } else {
-                lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.respectM);
-            }
-        }
-        else if (pEmotion == 9) {
-            if (lpsGlb.nowPoint >= 0) {
-                lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.calmlyP);
-            } else {
-                lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.calmlyM);
-            }
-        }
-        else if (pEmotion == 10) {
-            if (lpsGlb.nowPoint >= 0) {
-                lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.proudP);
-            } else {
-                lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.proudM);
-            }
-        }
-        else if (pEmotion == 99) {
-            lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.sleep);
-        }
-        else {
-            lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.normal);
-        }
+		if (pEmotion == 0) {
+			lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.normal);
+		}
+		else if (pEmotion == 1) {
+			if (lpsGlb.nowPoint >= 0) {
+				lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.joyP);
+			} else {
+				lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.joyM);
+			}
+		}
+		else if (pEmotion == 2) {
+			if (lpsGlb.nowPoint >= 0) {
+				lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.admirationP);
+			} else {
+				lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.admirationM);
+			}
+		}
+		else if (pEmotion == 3) {
+			if (lpsGlb.nowPoint >= 0) {
+				lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.peaceP);
+			} else {
+				lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.peaceM);
+			}
+		}
+		else if (pEmotion == 4) {
+			if (lpsGlb.nowPoint >= 0) {
+				lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.ecstasyP);
+			} else {
+				lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.ecstasyM);
+			}
+		}
+		else if (pEmotion == 5) {
+			if (lpsGlb.nowPoint >= 0) {
+				lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.amazementP);
+			} else {
+				lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.amazementM);
+			}
+		}
+		else if (pEmotion == 6) {
+			if (lpsGlb.nowPoint >= 0) {
+				lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.rageP);
+			} else {
+				lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.rageM);
+			}
+		}
+		else if (pEmotion == 7) {
+			if (lpsGlb.nowPoint >= 0) {
+				lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.interestP);
+			} else {
+				lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.interestM);
+			}
+		}
+		else if (pEmotion == 8) {
+			if (lpsGlb.nowPoint >= 0) {
+				lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.respectP);
+			} else {
+				lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.respectM);
+			}
+		}
+		else if (pEmotion == 9) {
+			if (lpsGlb.nowPoint >= 0) {
+				lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.calmlyP);
+			} else {
+				lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.calmlyM);
+			}
+		}
+		else if (pEmotion == 10) {
+			if (lpsGlb.nowPoint >= 0) {
+				lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.proudP);
+			} else {
+				lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.proudM);
+			}
+		}
+		else if (pEmotion == 99) {
+			lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.sleep);
+		}
+		else {
+			lpsGlb.nowObject = getObjBodyRandom(lpsBdyLst.normal);
+		}
 
-        //表示情報の変更
-        if(lpsGlb.nowObject.Eye1_Mouth1.src)
-        {
-        	document.liplisBody.src = lpsGlb.nowObject.Eye1_Mouth1.src;
-        }
-        
-    }
-    catch (e) {
-        //alert(e + "\n" + pEmotion); 
-    }
+		//表示情報の変更
+		if(lpsGlb.nowObject.Eye1_Mouth1.src)
+		{
+			document.liplisBody.src = lpsGlb.nowObject.Eye1_Mouth1.src;
+		}
+		
+	}
+	catch (e) {
+		//alert(e + "\n" + pEmotion); 
+	}
 }
 
 /// <summary>
 /// まばたき間隔のランダム値取得
 /// </summary>
 function getBlinkCnt() {
-    //return 5 + Math.floor(Math.random()*5+1);
-    return 50;
+	//return 5 + Math.floor(Math.random()*5+1);
+	return 50;
 }
 
 /// <summary>
@@ -1161,8 +1161,8 @@ function setWindow(idx) {
 		}
 	}
 	catch (e) {
-        //alert(e + "\n" + pEmotion); 
-    }
+		//alert(e + "\n" + pEmotion); 
+	}
 }
 
 ///==============================================================================================
@@ -1175,27 +1175,27 @@ function setWindow(idx) {
 /// メッセージ変更
 /// </summary>
 function chage_message(str) {
-    var message = document.getElementById('message');
-    message.innerHTML = str;
+	var message = document.getElementById('message');
+	message.innerHTML = str;
 }
 function addMessage(str) {
-    var message = document.getElementById('message');
-    message.innerHTML = message.innerHTML + str;
+	var message = document.getElementById('message');
+	message.innerHTML = message.innerHTML + str;
 }
 
 /// <summary>
 /// メッセージ変更
 /// </summary>
 function chage_calendar() {
-    var date = new Date();
-    var year = ("0000" + date.getFullYear()).slice(-4);
-    var mon = ("00" + (date.getMonth() + 1)).slice(-2);
-    var day = ("00" + date.getDate()).slice(-2);
-    var hour = ("00" + date.getHours()).slice(-2);
-    var min = ("00" + date.getMinutes()).slice(-2);
-    var sec = ("00" + date.getSeconds()).slice(-2);
-    var message = document.getElementById('calendar');
-    message.innerHTML = year + "/" + mon + "/" + day + " " + hour + ":" + min + ":" + sec;
+	var date = new Date();
+	var year = ("0000" + date.getFullYear()).slice(-4);
+	var mon = ("00" + (date.getMonth() + 1)).slice(-2);
+	var day = ("00" + date.getDate()).slice(-2);
+	var hour = ("00" + date.getHours()).slice(-2);
+	var min = ("00" + date.getMinutes()).slice(-2);
+	var sec = ("00" + date.getSeconds()).slice(-2);
+	var message = document.getElementById('calendar');
+	message.innerHTML = year + "/" + mon + "/" + day + " " + hour + ":" + min + ":" + sec;
 }
 
 ///==============================================================================================
@@ -1258,8 +1258,8 @@ function appendLog(pTitle, pUrl) {
 /// ログ選択
 /// </summary>
 function logSelect() {
-    var elSel = document.getElementById('liplisLogList');  g
-    var w=window.open();w.location.href=elSel.value;
+	var elSel = document.getElementById('liplisLogList');  g
+	var w=window.open();w.location.href=elSel.value;
 }
 
 
@@ -1292,18 +1292,18 @@ function setLocalStrageData(key,  value)
 /// 戻り値 : objBodyクラス
 /// </summary>
 function getObjBodyRandom(objBdyLst) {
-    var lstCnt = objBdyLst.length;
-    var randnum;
-    //リストカウントが0の場合はノーマルを返しておく
-    if (lstCnt < 1) {
-        return null;
-    }
+	var lstCnt = objBdyLst.length;
+	var randnum;
+	//リストカウントが0の場合はノーマルを返しておく
+	if (lstCnt < 1) {
+		return null;
+	}
 
-    //ランダム値を取得する
-    randnum = Math.floor(Math.random() * lstCnt);
+	//ランダム値を取得する
+	randnum = Math.floor(Math.random() * lstCnt);
 
-    //返す
-    return objBdyLst[randnum];
+	//返す
+	return objBdyLst[randnum];
 
 }
 
@@ -1313,19 +1313,19 @@ function getObjBodyRandom(objBdyLst) {
 /// 戻り値 : string
 /// </summary>
 function getObjGreetRandom() {
-    var lstCnt = lpsGreetLst.greet.length;
-    var randnum;
+	var lstCnt = lpsGreetLst.greet.length;
+	var randnum;
 
-    //リストカウントが0の場合はノーマルを返しておく
-    if (lstCnt < 1) {
-        return lpsGreetLst.greet[0];
-    }
+	//リストカウントが0の場合はノーマルを返しておく
+	if (lstCnt < 1) {
+		return lpsGreetLst.greet[0];
+	}
 
-    //ランダム値を取得する
-    randnum = Math.floor(Math.random() * lstCnt);
-    alert(lpsGreetLst.greet[0]);
-    //返す
-    return '';
+	//ランダム値を取得する
+	randnum = Math.floor(Math.random() * lstCnt);
+	alert(lpsGreetLst.greet[0]);
+	//返す
+	return '';
 }
 
 
@@ -1336,21 +1336,21 @@ function getObjGreetRandom() {
 /// 戻り値 : なし
 /// </summary>
 function getUserAgent() {
-    var userAgent = window.navigator.userAgent.toLowerCase();
+	var userAgent = window.navigator.userAgent.toLowerCase();
 
-    if (userAgent.indexOf('opera') != -1) {
-        lpsGlb.agent = 'opera';
-    } else if (userAgent.indexOf('msie') != -1) {
-        lpsGlb.agent = 'ie'
-    } else if (userAgent.indexOf('chrome') != -1) {
-        lpsGlb.agent = 'chrome'
-    } else if (userAgent.indexOf('safari') != -1) {
-        lpsGlb.agent = 'safari'
-    } else if (userAgent.indexOf('gecko') != -1) {
-        lpsGlb.agent = 'gecko'
-    } else {
-        lpsGlb.agent = 'other'
-    }
+	if (userAgent.indexOf('opera') != -1) {
+		lpsGlb.agent = 'opera';
+	} else if (userAgent.indexOf('msie') != -1) {
+		lpsGlb.agent = 'ie'
+	} else if (userAgent.indexOf('chrome') != -1) {
+		lpsGlb.agent = 'chrome'
+	} else if (userAgent.indexOf('safari') != -1) {
+		lpsGlb.agent = 'safari'
+	} else if (userAgent.indexOf('gecko') != -1) {
+		lpsGlb.agent = 'gecko'
+	} else {
+		lpsGlb.agent = 'other'
+	}
 
 }
 
@@ -1361,12 +1361,12 @@ function getUserAgent() {
 /// 戻り値 : なし
 /// </summary>
 function sleep(ms) {
-    var d1 = new Date().getTime();
-    var d2 = new Date().getTime();
-    while (d2 < d1 + ms) {    //T秒待つ 
-        d2 = new Date().getTime();
-    }
-    return;
+	var d1 = new Date().getTime();
+	var d2 = new Date().getTime();
+	while (d2 < d1 + ms) {    //T秒待つ 
+		d2 = new Date().getTime();
+	}
+	return;
 } 
 
 
@@ -1380,7 +1380,7 @@ function sleepJq(ms) {
 	 $(this).delay(ms).queue(function() {
 	   $(this).dequeue();
 	 });
-    return;
+	return;
 } 
 
 
@@ -1389,8 +1389,8 @@ function sleepJq(ms) {
 /// </summary>
 function getTimeText() {
 	var date = new Date();
-    
-    return date.getFullYear() + (date.getMonth() + 1)+ date.getDate() + date.getHours() + date.getMinutes() + date.getSeconds();
+	
+	return date.getFullYear() + (date.getMonth() + 1)+ date.getDate() + date.getHours() + date.getMinutes() + date.getSeconds();
 }
 
 
@@ -1405,68 +1405,68 @@ function getTimeText() {
 /// リプリスオブジェクトを作成する
 /// </summary>
 function loadLpsGlb() {
-    var i = 0;
-    var name;
-    var xmlhttpEmotion;
+	var i = 0;
+	var name;
+	var xmlhttpEmotion;
 
-    //ボディリストの初期化
-    lpsBdyLst = new objLiplisBody();
+	//ボディリストの初期化
+	lpsBdyLst = new objLiplisBody();
 
-    //エモーション取得フラグ(明示的に0を設定しておく)
-    lpsGlb.xmlEmotionEndFlg = 0;
+	//エモーション取得フラグ(明示的に0を設定しておく)
+	lpsGlb.xmlEmotionEndFlg = 0;
 
-    //httpResuwst
-    xmlhttpEmotion = new XMLHttpRequest();
+	//httpResuwst
+	xmlhttpEmotion = new XMLHttpRequest();
 
-    //body.xmlを読み込む
-    xmlhttpEmotion.open('GET', 'define/body.xml', true);
+	//body.xmlを読み込む
+	xmlhttpEmotion.open('GET', 'define/body.xml', true);
 
-    //ステートチェンジイベントの宣言
-    xmlhttpEmotion.onreadystatechange = function () {
+	//ステートチェンジイベントの宣言
+	xmlhttpEmotion.onreadystatechange = function () {
 
-        //ステイト4,ステータス200の場合OK
-        if (xmlhttpEmotion.readyState == 4 && xmlhttpEmotion.status == 200) {
+		//ステイト4,ステータス200の場合OK
+		if (xmlhttpEmotion.readyState == 4 && xmlhttpEmotion.status == 200) {
 
-            //XMLデータ取得
-            lpsGlb.xmlEmotion = xmlhttpEmotion.responseXML;
+			//XMLデータ取得
+			lpsGlb.xmlEmotion = xmlhttpEmotion.responseXML;
 
-            //各ボディデータの取得
-            lpsBdyLst.normal = createObjBody("normal");
-            lpsBdyLst.joyP = createObjBody("joy_p");
-            lpsBdyLst.joyM = createObjBody("joy_m");
-            lpsBdyLst.admirationP = createObjBody("admiration_p");
-            lpsBdyLst.admirationM = createObjBody("admiration_m");
-            lpsBdyLst.peaceP = createObjBody("peace_p");
-            lpsBdyLst.peaceM = createObjBody("peace_m");
-            lpsBdyLst.ecstasyP = createObjBody("ecstasy_p");
-            lpsBdyLst.ecstasyM = createObjBody("ecstasy_m");
-            lpsBdyLst.amazementP = createObjBody("amazement_p");
-            lpsBdyLst.amazementM = createObjBody("amazement_m");
-            lpsBdyLst.rageP = createObjBody("rage_p");
-            lpsBdyLst.rageM = createObjBody("rage_m");
-            lpsBdyLst.interestP = createObjBody("interest_p");
-            lpsBdyLst.interestM = createObjBody("interest_m");
-            lpsBdyLst.respectP = createObjBody("respect_p");
-            lpsBdyLst.respectM = createObjBody("respect_m");
-            lpsBdyLst.calmlyP = createObjBody("calmly_p");
-            lpsBdyLst.calmlyM = createObjBody("calmly_m");
-            lpsBdyLst.proudP = createObjBody("proud_p");
-            lpsBdyLst.proudM = createObjBody("proud_m");
-            lpsBdyLst.sleep =  createObjBody("sleep_");
+			//各ボディデータの取得
+			lpsBdyLst.normal = createObjBody("normal");
+			lpsBdyLst.joyP = createObjBody("joy_p");
+			lpsBdyLst.joyM = createObjBody("joy_m");
+			lpsBdyLst.admirationP = createObjBody("admiration_p");
+			lpsBdyLst.admirationM = createObjBody("admiration_m");
+			lpsBdyLst.peaceP = createObjBody("peace_p");
+			lpsBdyLst.peaceM = createObjBody("peace_m");
+			lpsBdyLst.ecstasyP = createObjBody("ecstasy_p");
+			lpsBdyLst.ecstasyM = createObjBody("ecstasy_m");
+			lpsBdyLst.amazementP = createObjBody("amazement_p");
+			lpsBdyLst.amazementM = createObjBody("amazement_m");
+			lpsBdyLst.rageP = createObjBody("rage_p");
+			lpsBdyLst.rageM = createObjBody("rage_m");
+			lpsBdyLst.interestP = createObjBody("interest_p");
+			lpsBdyLst.interestM = createObjBody("interest_m");
+			lpsBdyLst.respectP = createObjBody("respect_p");
+			lpsBdyLst.respectM = createObjBody("respect_m");
+			lpsBdyLst.calmlyP = createObjBody("calmly_p");
+			lpsBdyLst.calmlyM = createObjBody("calmly_m");
+			lpsBdyLst.proudP = createObjBody("proud_p");
+			lpsBdyLst.proudM = createObjBody("proud_m");
+			lpsBdyLst.sleep =  createObjBody("sleep_");
 
-            //初期表示としてデフォルトオブジェクトをセットしておく
-            setImage(0);
+			//初期表示としてデフォルトオブジェクトをセットしておく
+			setImage(0);
 
-            //エモーション取得完了
-            lpsGlb.xmlEmotionEndFlg = 1;
+			//エモーション取得完了
+			lpsGlb.xmlEmotionEndFlg = 1;
 
-        }
-    }
-    //xmlダウンロードには以下の指定が必要
-    xmlhttpEmotion.setRequestHeader("content-type", "application/x-www-form-urlencoded;charset=UTF-8");
+		}
+	}
+	//xmlダウンロードには以下の指定が必要
+	xmlhttpEmotion.setRequestHeader("content-type", "application/x-www-form-urlencoded;charset=UTF-8");
 
-    //ポストデータ
-    xmlhttpEmotion.send(null);
+	//ポストデータ
+	xmlhttpEmotion.send(null);
 
 }
 
@@ -1475,78 +1475,78 @@ function loadLpsGlb() {
 /// </summary>
 function getShrotNews() {
 
-    if (lpsGlb.agent == 'ie') {
-        getShrotNewsIe();
-    }
-    else {
-        getShrotNewsFx();
-    }
+	if (lpsGlb.agent == 'ie') {
+		getShrotNewsIe();
+	}
+	else {
+		getShrotNewsFx();
+	}
 }
 
 /// <summary>
 /// ショートニュースを取得する
 /// </summary>
 function getShrotNewsFx() {
-    xmlhttp = new XMLHttpRequest();
-    //ポスト指定(ポストするデータは最下行で指定)
-    xmlhttp.open('POST', lpsConst.adrApiGetNews, true);
+	xmlhttp = new XMLHttpRequest();
+	//ポスト指定(ポストするデータは最下行で指定)
+	xmlhttp.open('POST', lpsConst.adrApiGetNews, true);
 
-    //ステートチェンジイベントの宣言
-    xmlhttp.onreadystatechange = function () {
-        //ステイト4,ステータス200の場合OK
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+	//ステートチェンジイベントの宣言
+	xmlhttp.onreadystatechange = function () {
+		//ステイト4,ステータス200の場合OK
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 
-            //XMLデータ取得
-            lpsGlb.jsonDoc = eval( '(' + xmlhttp.responseText + ')' );
+			//XMLデータ取得
+			lpsGlb.jsonDoc = eval( '(' + xmlhttp.responseText + ')' );
 
-            lpsGlb.chatFlg = 1;
-        }
-    }
-    
-    //xmlダウンロードには以下の指定が必要
-    xmlhttp.setRequestHeader("content-type", "application/x-www-form-urlencoded;charset=UTF-8");
-    
-    //ポストデータ(口調ファイルのURLをポスト。タイムスタンプはiPhoneサファリ対策)
-    xmlhttp.send("tone=" + lpsConst.adrTone + "&newsFlg=" + lpsGlb.genreNews + ',' + lpsGlb.genre2ch + ',' + lpsGlb.genrenico + "&time=" + getTimeText());
+			lpsGlb.chatFlg = 1;
+		}
+	}
+	
+	//xmlダウンロードには以下の指定が必要
+	xmlhttp.setRequestHeader("content-type", "application/x-www-form-urlencoded;charset=UTF-8");
+	
+	//ポストデータ(口調ファイルのURLをポスト。タイムスタンプはiPhoneサファリ対策)
+	xmlhttp.send("tone=" + lpsConst.adrTone + "&newsFlg=" + lpsGlb.genreNews + ',' + lpsGlb.genre2ch + ',' + lpsGlb.genrenico + "&time=" + getTimeText());
 }
 
 /// <summary>
 /// ショートニュースを取得する
 /// </summary>
 function getShrotNewsIe() {
-    var xdr = new XDomainRequest();
+	var xdr = new XDomainRequest();
 
-    xdr.onerror = function () {
-        alert("error");
+	xdr.onerror = function () {
+		alert("error");
 
-    }
-    
-    xdr.onload = function () {
-        //XMLデータ取得
-        lpsGlb.jsonDoc = eval( '(' + xdr.responseText + ')' );
+	}
+	
+	xdr.onload = function () {
+		//XMLデータ取得
+		lpsGlb.jsonDoc = eval( '(' + xdr.responseText + ')' );
 
-        lpsGlb.chatFlg = 1;
-    }
-    
-    //ゲットのリクエストを送る(タイムスタンプはキャッシュ対策)
-    //xdr.open("GET", lpsConst.adrApiGetNews + "?tone=" + lpsConst.adrTone + "&newsFlg=" + lpsGlb.genreNews + ',' + lpsGlb.genre2ch + ',' + lpsGlb.genrenico + "&time="  + getTimeText());
+		lpsGlb.chatFlg = 1;
+	}
+	
+	//ゲットのリクエストを送る(タイムスタンプはキャッシュ対策)
+	//xdr.open("GET", lpsConst.adrApiGetNews + "?tone=" + lpsConst.adrTone + "&newsFlg=" + lpsGlb.genreNews + ',' + lpsGlb.genre2ch + ',' + lpsGlb.genrenico + "&time="  + getTimeText());
 
-    //xdr.send(null);
-    
-    xdr.open('POST', lpsConst.adrApiGetNews);
-    xdr.send( $.param({tone:lpsConst.adrTone,newsFlg:lpsGlb.genreNews + ',' + lpsGlb.genre2ch + ',' + lpsGlb.genrenico,time:getTimeText()}) );
+	//xdr.send(null);
+	
+	xdr.open('POST', lpsConst.adrApiGetNews);
+	xdr.send( $.param({tone:lpsConst.adrTone,newsFlg:lpsGlb.genreNews + ',' + lpsGlb.genre2ch + ',' + lpsGlb.genrenico,time:getTimeText()}) );
 }
 
 /// <summary>
 /// ショートニュースを取得する
 /// </summary>
 function getText(str) {
-    if (lpsGlb.agent == 'ie') {
-        getTextIe(str);
-    }
-    else {
-        getTextFx(str);
-    }
+	if (lpsGlb.agent == 'ie') {
+		getTextIe(str);
+	}
+	else {
+		getTextFx(str);
+	}
 }
 
 
@@ -1554,50 +1554,50 @@ function getText(str) {
 /// 任意の文章の感情値を取得する
 /// </summary>
 function getTextFx(str) {
-    xmlhttp = new XMLHttpRequest();
-    //ポスト指定(ポストするデータは最下行で指定)
-    xmlhttp.open('POST', lpsConst.adrApiGetText, true);
+	xmlhttp = new XMLHttpRequest();
+	//ポスト指定(ポストするデータは最下行で指定)
+	xmlhttp.open('POST', lpsConst.adrApiGetText, true);
 
-    //ステートチェンジイベントの宣言
-    xmlhttp.onreadystatechange = function () {
-        //ステイト4,ステータス200の場合OK
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+	//ステートチェンジイベントの宣言
+	xmlhttp.onreadystatechange = function () {
+		//ステイト4,ステータス200の場合OK
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 
-            //XMLデータ取得
-            lpsGlb.jsonDoc = eval( '(' + xmlhttp.responseText + ')' );
+			//XMLデータ取得
+			lpsGlb.jsonDoc = eval( '(' + xmlhttp.responseText + ')' );
 
-            lpsGlb.chatFlg = 1;
-        }
-    }
-    //xmlダウンロードには以下の指定が必要
-    xmlhttp.setRequestHeader("content-type", "application/x-www-form-urlencoded;charset=UTF-8");
+			lpsGlb.chatFlg = 1;
+		}
+	}
+	//xmlダウンロードには以下の指定が必要
+	xmlhttp.setRequestHeader("content-type", "application/x-www-form-urlencoded;charset=UTF-8");
 
-    //ポストデータ(口調ファイルのURLをポスト)
-    xmlhttp.send("sentence=" + str);
+	//ポストデータ(口調ファイルのURLをポスト)
+	xmlhttp.send("sentence=" + str);
 }
 
 /// <summary>
 /// 任意の文章の感情値を取得する
 /// </summary>
 function getTextIe(str) {
-    var xdr = new XDomainRequest();
+	var xdr = new XDomainRequest();
 
-    xdr.onerror = function () {
-        alert("error");
+	xdr.onerror = function () {
+		alert("error");
 
-    }
-    
-    xdr.onload = function () {
-        //XMLデータ取得
-        lpsGlb.jsonDoc = eval( '(' + xdr.responseText + ')' );
+	}
+	
+	xdr.onload = function () {
+		//XMLデータ取得
+		lpsGlb.jsonDoc = eval( '(' + xdr.responseText + ')' );
 
-        lpsGlb.chatFlg = 1;
-    }
-    
-    //ゲットのリクエストを送る(タイムスタンプはキャッシュ対策)
-    xdr.open("GET", lpsConst.adrApiGetText + "?sentence=" + encodeURI(str));
+		lpsGlb.chatFlg = 1;
+	}
+	
+	//ゲットのリクエストを送る(タイムスタンプはキャッシュ対策)
+	xdr.open("GET", lpsConst.adrApiGetText + "?sentence=" + encodeURI(str));
 
-    xdr.send(null);
+	xdr.send(null);
 }
 
 
@@ -1611,54 +1611,54 @@ function getTextIe(str) {
 ///=====================================
 /// clsEmotionクラス
 var liplisGlobal = function () {
-    ///=====================================
-    /// ユーザーエージェント
-    this.agent;
+	///=====================================
+	/// ユーザーエージェント
+	this.agent;
 
-    ///=====================================
-    /// タイマーオブジェクト
-    this.timerRefresh;
-    this.timerUpdate;
-    this.timerFirstInit;
+	///=====================================
+	/// タイマーオブジェクト
+	this.timerRefresh;
+	this.timerUpdate;
+	this.timerFirstInit;
 
-    ///=====================================
-    /// 表示用オブジェクト
-    this.nowObject;             //objBody
+	///=====================================
+	/// 表示用オブジェクト
+	this.nowObject;             //objBody
 
-    ///=====================================
-    /// 制御フラグ
-    this.chatFlg          = 0;
-    this.xmlEndFlg        = 0;
-    this.xmlEmotionEndFlg = 0;
-    this.sleepFlg         = 0;
-    this.skipFlg          = 0;
+	///=====================================
+	/// 制御フラグ
+	this.chatFlg          = 0;
+	this.xmlEndFlg        = 0;
+	this.xmlEmotionEndFlg = 0;
+	this.sleepFlg         = 0;
+	this.skipFlg          = 0;
 
-    ///=====================================
-    /// 制御カウンタ
-    this.blinkCnt = 0;       //1回/5～10s
-    this.mouthCnt = 0;       //1回/200ms
-    this.nowIdx   = 0;
-    this.wordIdx  = 0;
+	///=====================================
+	/// 制御カウンタ
+	this.blinkCnt = 0;       //1回/5～10s
+	this.mouthCnt = 0;       //1回/200ms
+	this.nowIdx   = 0;
+	this.wordIdx  = 0;
 
-    ///=====================================
-    /// 制御プロパティ
-    this.nowPoint    = 0;
-    this.nowEmotion  = 0;
-    this.prvEmotion  = 0;
-    this.nowWord     = '';
-    this.nowReadWord = '';
+	///=====================================
+	/// 制御プロパティ
+	this.nowPoint    = 0;
+	this.nowEmotion  = 0;
+	this.prvEmotion  = 0;
+	this.nowWord     = '';
+	this.nowReadWord = '';
 
-    ///=====================================
-    /// 受信データ
-    this.xmlDoc;
-    this.jsonDoc;
-    ///=====================================
-    /// xml定義データ
-    this.xmlEmotion;
-    
-    ///=====================================
-    /// liplis設定データ
-    this.chatMode   = '';
+	///=====================================
+	/// 受信データ
+	this.xmlDoc;
+	this.jsonDoc;
+	///=====================================
+	/// xml定義データ
+	this.xmlEmotion;
+	
+	///=====================================
+	/// liplis設定データ
+	this.chatMode   = '';
 	this.activeMode = '';
 	this.genreNews  = '';
 	this.genre2ch   = '';
@@ -1671,63 +1671,63 @@ var liplisGlobal = function () {
 ///=====================================
 /// objBodyクラス
 var objBody = function (Eye1_Mouth1, Eye1_Mouth2, Eye2_Mouth1, Eye2_Mouth2, Eye3_Mouth1, Eye3_Mouth2) {
-    //イメージ型の宣言
-    var imgEye1_Mouth1 = new Image();
-    var imgEye1_Mouth2 = new Image();
-    var imgEye2_Mouth1 = new Image();
-    var imgEye2_Mouth2 = new Image();
-    var imgEye3_Mouth1 = new Image();
-    var imgEye3_Mouth2 = new Image();
+	//イメージ型の宣言
+	var imgEye1_Mouth1 = new Image();
+	var imgEye1_Mouth2 = new Image();
+	var imgEye2_Mouth1 = new Image();
+	var imgEye2_Mouth2 = new Image();
+	var imgEye3_Mouth1 = new Image();
+	var imgEye3_Mouth2 = new Image();
 
-    //ソースの指定
-    imgEye1_Mouth1.src = "body/" + Eye1_Mouth1;
-    imgEye1_Mouth2.src = "body/" + Eye1_Mouth2;
-    imgEye2_Mouth1.src = "body/" + Eye2_Mouth1;
-    imgEye2_Mouth2.src = "body/" + Eye2_Mouth2;
-    imgEye3_Mouth1.src = "body/" + Eye3_Mouth1;
-    imgEye3_Mouth2.src = "body/" + Eye3_Mouth2;
+	//ソースの指定
+	imgEye1_Mouth1.src = "body/" + Eye1_Mouth1;
+	imgEye1_Mouth2.src = "body/" + Eye1_Mouth2;
+	imgEye2_Mouth1.src = "body/" + Eye2_Mouth1;
+	imgEye2_Mouth2.src = "body/" + Eye2_Mouth2;
+	imgEye3_Mouth1.src = "body/" + Eye3_Mouth1;
+	imgEye3_Mouth2.src = "body/" + Eye3_Mouth2;
 
-    ///=====================================
-    /// プロパティセット
-    this.Eye1_Mouth1 = imgEye1_Mouth1;       //Image
-    this.Eye1_Mouth2 = imgEye1_Mouth2;       //Image
-    this.Eye2_Mouth1 = imgEye2_Mouth1;       //Image
-    this.Eye2_Mouth2 = imgEye2_Mouth2;       //Image
-    this.Eye3_Mouth1 = imgEye3_Mouth1;       //Image
-    this.Eye3_Mouth2 = imgEye3_Mouth2;       //Image
+	///=====================================
+	/// プロパティセット
+	this.Eye1_Mouth1 = imgEye1_Mouth1;       //Image
+	this.Eye1_Mouth2 = imgEye1_Mouth2;       //Image
+	this.Eye2_Mouth1 = imgEye2_Mouth1;       //Image
+	this.Eye2_Mouth2 = imgEye2_Mouth2;       //Image
+	this.Eye3_Mouth1 = imgEye3_Mouth1;       //Image
+	this.Eye3_Mouth2 = imgEye3_Mouth2;       //Image
 };
 
 ///=====================================
 /// objLiplisBodyクラス
 var objLiplisBody = function () {
-    this.normal;
-    this.joyP;
-    this.joyM;
-    this.admirationP;
-    this.admirationM;
-    this.peaceP;
-    this.peaceM;
-    this.ecstasyP;
-    this.ecstasyM;
-    this.amazementP;
-    this.amazementM;
-    this.rageP;
-    this.rageM;
-    this.interestP;
-    this.interestM;
-    this.respectP;
-    this.respectM;
-    this.calmlyP;
-    this.calmlyM;
-    this.proudP;
-    this.proudM;
-    this.sleep;
+	this.normal;
+	this.joyP;
+	this.joyM;
+	this.admirationP;
+	this.admirationM;
+	this.peaceP;
+	this.peaceM;
+	this.ecstasyP;
+	this.ecstasyM;
+	this.amazementP;
+	this.amazementM;
+	this.rageP;
+	this.rageM;
+	this.interestP;
+	this.interestM;
+	this.respectP;
+	this.respectM;
+	this.calmlyP;
+	this.calmlyM;
+	this.proudP;
+	this.proudM;
+	this.sleep;
 }
 
 ///=====================================
 /// objLiplisWindowクラス
 var objLiplisWindow = function () {
-    //イメージ型の宣言
+	//イメージ型の宣言
 	var imgWindow0 = new Image();
 	var imgWindow1 = new Image();
 	var imgWindow2 = new Image();
@@ -1736,7 +1736,7 @@ var objLiplisWindow = function () {
 	var imgWindow5 = new Image();
 	var imgWindow6 = new Image();
 
-    //ソースの指定
+	//ソースの指定
 	imgWindow0.src = "window/window.png";
 	imgWindow1.src = "window/window_blue.png";
 	imgWindow2.src = "window/window_green.png";
@@ -1758,19 +1758,19 @@ var objLiplisWindow = function () {
 ///=====================================
 /// objChatクラス
 var objChat = function () {
-    this.greet = [];
-    this.nowTime = '現在 [?] です。';
-    this.greet.push('ごきげんよう、ご主人様。　　');
-    this.greet.push('ようこそ、ご主人様。　　');
+	this.greet = [];
+	this.nowTime = '現在 [?] です。';
+	this.greet.push('ごきげんよう、ご主人様。　　');
+	this.greet.push('ようこそ、ご主人様。　　');
 }
 
 ///=====================================
 /// liplisConstクラス
 var liplisConst = function () {
 	//URL
-    this.adrTone       = 'http://liplis.mine.nu/xml/Tone/LiplisLili.xml';
-    this.adrApiGetNews = 'http://liplis.mine.nu/Clalis/v30/Liplis/clalisForLiplisWeb.aspx';
-    this.adrApiGetText = 'http://liplis.mine.nu/Clalis/v30/Liplis/clalisForLiplisWebChatText.aspx';
+	this.adrTone       = 'http://liplis.mine.nu/xml/Tone/LiplisLili.xml';
+	this.adrApiGetNews = 'http://liplis.mine.nu/Clalis/v30/Liplis/clalisForLiplisWeb.aspx';
+	this.adrApiGetText = 'http://liplis.mine.nu/Clalis/v30/Liplis/clalisForLiplisWebChatText.aspx';
 }
 
 ///=====================================
