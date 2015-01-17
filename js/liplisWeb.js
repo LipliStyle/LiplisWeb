@@ -577,28 +577,29 @@ function chatting() {
 	}
 
 	//nullチェック2
-	if (!lpsGlb.jsonDoc.laeList) {
+	if (!lpsGlb.laeList) {
 		return;
 	}
 	//nullチェック3
-	if (!lpsGlb.jsonDoc.laeList[lpsGlb.nowIdx]) {
+	if (!lpsGlb.laeList[lpsGlb.nowIdx]) {
 		return;
 	}
 		
 	//nullチェック4
-	if (!lpsGlb.jsonDoc.laeList[lpsGlb.nowIdx].name) {
+	if (!lpsGlb.laeList[lpsGlb.nowIdx].name) {
 		return;
 	}
 
 	//--- ワードセット、感情チェックフェーズ --------------------
 	//送りワード文字数チェック
-	if (lpsGlb.wordIdx >= lpsGlb.jsonDoc.laeList[lpsGlb.nowIdx].name.length) {
+	if (lpsGlb.wordIdx >= lpsGlb.laeList[lpsGlb.nowIdx].name.length) {
 
 		do {
 			//次ワード遷移
 			lpsGlb.nowIdx++;
 
-			if (lpsGlb.nowIdx >= lpsGlb.jsonDoc.laeList.length-1) {
+			//ワードが無くなったか、EOSが来たら終了。
+			if (lpsGlb.nowIdx >= lpsGlb.laeList.length - 1 || lpsGlb.laeList[lpsGlb.nowIdx].name == 'EOS') {
 				//チャット終了
 				chatEnd();
 
@@ -610,14 +611,14 @@ function chatting() {
 			lpsGlb.wordIdx = 0;
 
 			//ナウワードの初期化
-			lpsGlb.nowWord = lpsGlb.jsonDoc.laeList[lpsGlb.nowIdx].name;
+			lpsGlb.nowWord = lpsGlb.laeList[lpsGlb.nowIdx].name;
 
 		} while (!lpsGlb.nowWord);
 
 		//エモーション取得
 		lpsGlb.prvEmotion = lpsGlb.nowEmotion;
-		lpsGlb.nowEmotion = lpsGlb.jsonDoc.laeList[lpsGlb.nowIdx].emotion;
-		lpsGlb.nowPoint = lpsGlb.jsonDoc.laeList[lpsGlb.nowIdx].point;
+		lpsGlb.nowEmotion = lpsGlb.laeList[lpsGlb.nowIdx].emotion;
+		lpsGlb.nowPoint = lpsGlb.laeList[lpsGlb.nowIdx].point;
 
 		//エモーションチェック
 		if (lpsGlb.prvEmotion != lpsGlb.nowEmotion) {
@@ -632,7 +633,7 @@ function chatting() {
 		message.innerHTML = "";
 
 		lpsGlb.wordIdx = 0;
-		lpsGlb.nowWord = lpsGlb.jsonDoc.laeList[lpsGlb.nowIdx].name;
+		lpsGlb.nowWord = lpsGlb.laeList[lpsGlb.nowIdx].name;
 
 		//空だったら、空じゃなくなるまで繰り返す
 		if (!lpsGlb.nowWord) {
@@ -640,7 +641,8 @@ function chatting() {
 				//次ワード遷移
 				lpsGlb.nowIdx++;
 
-				if (lpsGlb.nowIdx >= lpsGlb.jsonDoc.laeList.length -1) {
+                //ワードが無くなったか、EOSが来たら終了。
+				if (lpsGlb.nowIdx >= lpsGlb.laeList.length - 1 || lpsGlb.laeList[lpsGlb.nowIdx].name == 'EOS') {
 					//チャット終了
 					chatEnd();
 
@@ -652,15 +654,15 @@ function chatting() {
 				lpsGlb.wordIdx = 0;
 
 				//ナウワードの初期化
-				lpsGlb.nowWord = lpsGlb.jsonDoc.laeList[lpsGlb.nowIdx].name;
+				lpsGlb.nowWord = lpsGlb.laeList[lpsGlb.nowIdx].name;
 
 			} while (!lpsGlb.nowWord);
 		}
 
 		//エモーションチェック
 		lpsGlb.prvEmotion = 0;
-		lpsGlb.nowEmotion = lpsGlb.jsonDoc.laeList[lpsGlb.nowIdx].emotion;
-		lpsGlb.nowPoint = lpsGlb.jsonDoc.laeList[lpsGlb.nowIdx].point;
+		lpsGlb.nowEmotion = lpsGlb.laeList[lpsGlb.nowIdx].emotion;
+		lpsGlb.nowPoint = lpsGlb.laeList[lpsGlb.nowIdx].point;
 		setImage(0);
 	}
 	//おしゃべり中は何もしない
@@ -715,6 +717,7 @@ function skipChatting() {
 function chattingTest(str) {
 	lpsGlb.xmlDoc = null;
 	lpsGlb.jsonDoc = null;
+	lpsGlb.laeList = null;
 	getText(str);
 	chatStart();
 }
@@ -729,6 +732,7 @@ function loadChatTopic() {
 	setCssLiplisLog();
 	lpsGlb.xmlDoc = null;
 	lpsGlb.jsonDoc = null;
+	lpsGlb.laeList = null;
 	getShrotNews();
 	chatStart();
 	setCssLiplisThinkingNot();
@@ -1495,9 +1499,11 @@ function getShrotNewsFx() {
 	xmlhttp.onreadystatechange = function () {
 		//ステイト4,ステータス200の場合OK
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-
 			//XMLデータ取得
 			lpsGlb.jsonDoc = eval( '(' + xmlhttp.responseText + ')' );
+
+			//LAEリストを生成する
+			createLaeList();
 
 			lpsGlb.chatFlg = 1;
 		}
@@ -1524,6 +1530,9 @@ function getShrotNewsIe() {
 	xdr.onload = function () {
 		//XMLデータ取得
 		lpsGlb.jsonDoc = eval( '(' + xdr.responseText + ')' );
+
+		//LAEリストを生成する
+		createLaeList();
 
 		lpsGlb.chatFlg = 1;
 	}
@@ -1560,14 +1569,17 @@ function getTextFx(str) {
 
 	//ステートチェンジイベントの宣言
 	xmlhttp.onreadystatechange = function () {
-		//ステイト4,ステータス200の場合OK
-		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+	    //ステイト4,ステータス200の場合OK
+	    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+	        //XMLデータ取得
+	        lpsGlb.jsonDoc = eval('(' + xmlhttp.responseText + ')');
 
-			//XMLデータ取得
-			lpsGlb.jsonDoc = eval( '(' + xmlhttp.responseText + ')' );
+            //LAEリストを生成する
+	        createLaeList();
 
-			lpsGlb.chatFlg = 1;
-		}
+	        //受信完了
+	        lpsGlb.chatFlg = 1;
+	    }
 	}
 	//xmlダウンロードには以下の指定が必要
 	xmlhttp.setRequestHeader("content-type", "application/x-www-form-urlencoded;charset=UTF-8");
@@ -1580,24 +1592,55 @@ function getTextFx(str) {
 /// 任意の文章の感情値を取得する
 /// </summary>
 function getTextIe(str) {
+    alert("");
 	var xdr = new XDomainRequest();
 
 	xdr.onerror = function () {
 		alert("error");
 
 	}
-	
-	xdr.onload = function () {
-		//XMLデータ取得
-		lpsGlb.jsonDoc = eval( '(' + xdr.responseText + ')' );
 
-		lpsGlb.chatFlg = 1;
+    xdr.onload = function () {
+	    //XMLデータ取得
+	    lpsGlb.jsonDoc = eval('(' + xdr.responseText + ')');
+
+	    //LAEリストを生成する
+	    createLaeList();
+
+        //受信完了
+	    lpsGlb.chatFlg = 1;
 	}
 	
 	//ゲットのリクエストを送る(タイムスタンプはキャッシュ対策)
 	xdr.open("GET", lpsConst.adrApiGetText + "?sentence=" + encodeURI(str));
 
 	xdr.send(null);
+}
+
+/// <summary>
+/// 受信情報をLAEリストに変換する
+/// </summary>
+function createLaeList() {
+    lpsGlb.laeList = [];
+
+    var i;
+    var laeArray = lpsGlb.jsonDoc.result.split(";");
+
+    for (i = 0; i < laeArray.length; i = i + 1) {
+        //LAEインスタンス
+        var laeI = new lae();
+
+        //LAEストリングをバラす
+        var laePart = laeArray[i].split(",");
+
+        //ばらした内容をインスタンスに設定
+        laeI.name = laePart[0];
+        laeI.emotion = laePart[1];
+        laeI.point = laePart[2];
+
+        //リストに入れる
+        lpsGlb.laeList.push(laeI);
+    }
 }
 
 
@@ -1652,6 +1695,7 @@ var liplisGlobal = function () {
 	/// 受信データ
 	this.xmlDoc;
 	this.jsonDoc;
+	this.laeList;
 	///=====================================
 	/// xml定義データ
 	this.xmlEmotion;
@@ -1768,9 +1812,9 @@ var objChat = function () {
 /// liplisConstクラス
 var liplisConst = function () {
 	//URL
-	this.adrTone       = 'http://liplis.mine.nu/xml/Tone/LiplisLili.xml';
-	this.adrApiGetNews = 'http://liplis.mine.nu/Clalis/v30/Liplis/clalisForLiplisWeb.aspx';
-	this.adrApiGetText = 'http://liplis.mine.nu/Clalis/v30/Liplis/clalisForLiplisWebChatText.aspx';
+	this.adrTone       = 'http://liplis.mine.nu/FileSystem/Xml/Tone/little.pretty.lilirenew.xml';
+	this.adrApiGetNews = 'http://liplis.mine.nu/Clalis/v40/Liplis/clalisForLiplisWeb.aspx';
+	this.adrApiGetText = 'http://localhost:56926/Clalis/v40/Liplis/clalisForLiplisWebChatText.aspx';
 }
 
 ///=====================================
@@ -1785,6 +1829,16 @@ var liplisSettingDefine = function ()  {
 	this.region         = 'region';
 	this.flgSkipOn      = 'flgSkipOn';
 }
+
+///=====================================
+/// laeクラス
+/// 2015/01/16 ver2.0
+var lae = function () {
+    this.name = '';
+    this.emotion = '';
+    this.point = '';
+}
+
 
 ///==============================================================================================
 ///
