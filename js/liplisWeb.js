@@ -1814,7 +1814,7 @@ var liplisConst = function () {
 	//URL
 	this.adrTone       = 'http://liplis.mine.nu/FileSystem/Xml/Tone/little.pretty.lilirenew.xml';
 	this.adrApiGetNews = 'http://liplis.mine.nu/Clalis/v40/Liplis/clalisForLiplisWeb.aspx';
-	this.adrApiGetText = 'http://localhost:56926/Clalis/v40/Liplis/clalisForLiplisWebChatText.aspx';
+	this.adrApiGetText = 'http://liplis.mine.nu/Clalis/v40/Liplis/clalisForLiplisWebChatText.aspx';
 }
 
 ///=====================================
